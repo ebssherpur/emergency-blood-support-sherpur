@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Events</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="firebase.js"></script>
+<style>
+.event{background:#fff;margin:15px;padding:15px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.event img{width:100%;border-radius:10px;margin-bottom:10px}
+</style>
+</head>
+<body>
+<header>🎉 Events</header>
+<div id="events"></div>
+<script>
+db.ref("events").on("value",function(s){
+let out="";
+s.forEach(function(c){
+let e=c.val();
+out+=`<div class="event">
+<img src="${e.image||''}" alt="">
+<h3>${e.title||'Event'}</h3>
+<p>${e.date||''}</p>
+<p>${e.description||''}</p>
+</div>`;
+});
+document.getElementById("events").innerHTML=out||"<div class='event'>No Events Available</div>";
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Gallery</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="firebase.js"></script>
+<style>
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;padding:15px}
+.grid img{width:100%;border-radius:10px}
+</style>
+</head>
+<body>
+<header>🖼 Gallery</header>
+<div id="gallery" class="grid"></div>
+<script>
+db.ref("gallery").on("value",function(s){
+let h="";
+s.forEach(function(c){
+let g=c.val();
+h+=`<div class="card"><img src="${g.image}" alt=""><p>${g.title||""}</p></div>`;
+});
+document.getElementById("gallery").innerHTML=h||"<div class='card'>No Images</div>";
+});
+</script>
+</body>
+</html>

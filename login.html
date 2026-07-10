@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>🔐 Login</header>
+
+<div class="container">
+<div class="card">
+
+<input type="text" id="phone" placeholder="Phone Number">
+<input type="password" id="password" placeholder="Password">
+
+<button id="loginBtn">Login</button>
+
+<br><br>
+
+<button onclick="location.href='signup.html'">👤 Become Donor</button>
+<button onclick="location.href='volunteer-register.html'">🙋 Become Volunteer</button>
+
+</div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="firebase.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volunteer Registration</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>🙋 Volunteer Registration</header>
+
+<div class="container">
+<div class="card">
+
+<input type="text" id="name" placeholder="Full Name">
+<input type="text" id="phone" placeholder="Phone Number">
+<input type="email" id="email" placeholder="Email">
+<input type="text" id="facebook" placeholder="Facebook Profile Link">
+
+<select id="blood">
+<option value="">Blood Group</option>
+<option>A+</option><option>A-</option>
+<option>B+</option><option>B-</option>
+<option>O+</option><option>O-</option>
+<option>AB+</option><option>AB-</option>
+</select>
+
+<input type="text" id="district" placeholder="District">
+<input type="text" id="thana" placeholder="Thana">
+<input type="password" id="password" placeholder="Password">
+
+<button onclick="registerVolunteer()">Register Volunteer</button>
+
+</div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="firebase.js"></script>
+
+<script>
+function registerVolunteer(){
+
+const id=Date.now();
+const refCode="VOL"+id;
+
+db.ref("volunteers/"+id).set({
+name:name.value,
+phone:phone.value,
+email:email.value,
+facebook:facebook.value,
+blood:blood.value,
+district:district.value,
+thana:thana.value,
+password:password.value,
+reference:refCode,
+points:0,
+managedBlood:0,
+addedDonor:0,
+addedVolunteer:0,
+status:"Pending",
+role:"volunteer"
+}).then(()=>{
+alert("Registration Submitted\nReference: "+refCode);
+location.href="login.html";
+});
+
+}
+</script>
+
+</body>
+</html>

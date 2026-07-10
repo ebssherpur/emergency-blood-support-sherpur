@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Search Donor</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>🔍 Search Donor</header>
+
+<div class="container">
+<div class="card">
+<select id="blood">
+<option value="">Select Blood Group</option>
+<option>A+</option><option>A-</option>
+<option>B+</option><option>B-</option>
+<option>O+</option><option>O-</option>
+<option>AB+</option><option>AB-</option>
+</select>
+<button onclick="searchDonor()">Search</button>
+</div>
+
+<div id="result"></div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="firebase.js"></script>
+
+<script>
+function searchDonor(){
+const bg=document.getElementById("blood").value;
+result.innerHTML="";
+db.ref("users").once("value").then(s=>{
+s.forEach(c=>{
+const u=c.val();
+if(!bg||u.blood===bg){
+result.innerHTML+=`
+<div class="card">
+<h3>${u.name}</h3>
+<p>🩸 ${u.blood}</p>
+<p>📞 ${u.phone}</p>
+<p>📍 ${u.district||""}</p>
+<button onclick="location.href='chat.html?user=${u.phone}'">💬 Chat</button>
+</div>`;
+}
+});
+});
+}
+</script>
+</body>
+</html>

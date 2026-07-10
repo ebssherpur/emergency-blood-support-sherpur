@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>🛡 Admin Dashboard</header>
+
+<div class="container">
+
+<div class="grid">
+
+<div class="box">
+<h2 id="donorCount">0</h2>
+<p>Donors</p>
+</div>
+
+<div class="box">
+<h2 id="volunteerCount">0</h2>
+<p>Volunteers</p>
+</div>
+
+<div class="box">
+<h2 id="requestCount">0</h2>
+<p>Blood Requests</p>
+</div>
+
+<div class="box">
+<h2 id="noticeCount">0</h2>
+<p>Notices</p>
+</div>
+
+</div>
+
+<div class="card">
+
+<button onclick="location.href='pending-donors.html'">👤 Pending Donors</button>
+<button onclick="location.href='pending-volunteers.html'">👥 Pending Volunteers</button>
+<button onclick="location.href='blood-request-list.html'">🩸 Blood Requests</button>
+<button onclick="location.href='leaderboard.html'">🏆 Leaderboard</button>
+<button onclick="location.href='notice.html'">📢 Notice</button>
+<button onclick="location.href='gallery.html'">🖼 Gallery</button>
+<button onclick="location.href='event.html'">🎉 Events</button>
+<button onclick="location.href='chat-list.html'">💬 Live Chat</button>
+<button onclick="logout()">🚪 Logout</button>
+
+</div>
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="firebase.js"></script>
+<script>
+db.ref("users").on("value",s=>donorCount.innerHTML=s.exists()?s.numChildren():0);
+db.ref("volunteers").on("value",s=>volunteerCount.innerHTML=s.exists()?s.numChildren():0);
+db.ref("bloodRequests").on("value",s=>requestCount.innerHTML=s.exists()?s.numChildren():0);
+db.ref("notice").on("value",s=>noticeCount.innerHTML=s.exists()?s.numChildren():0);
+
+function logout(){
+localStorage.clear();
+location.href="login.html";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volunteer Profile</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>👥 Volunteer Profile</header>
+<div class="container">
+<div class="card profile">
+<img src="https://i.imgur.com/6VBx3io.png">
+<h2 id="name"></h2>
+<div class="badge" id="badge">🥉 Bronze Volunteer</div>
+</div>
+
+<div class="info"><b>📞 Phone:</b> <span id="phone"></span></div>
+<div class="info"><b>📧 Email:</b> <span id="email"></span></div>
+<div class="info"><b>🩸 Blood:</b> <span id="blood"></span></div>
+<div class="info"><b>📍 District:</b> <span id="district"></span></div>
+<div class="info"><b>🏘️ Thana:</b> <span id="thana"></span></div>
+<div class="info"><b>⭐ Points:</b> <span id="points"></span></div>
+
+<button onclick="location.href='search-donor.html'">🔍 Search Donor</button>
+<button onclick="location.href='blood-request-list.html'">🩸 Blood Requests</button>
+<button onclick="location.href='chat-list.html'">💬 Live Chat</button>
+<button onclick="logout()">🚪 Logout</button>
+</div>
+<script>
+["name","phone","email","blood","district","thana","points"].forEach(k=>{
+let e=document.getElementById(k);
+if(e)e.textContent=localStorage.getItem(k)||"";
+});
+let p=parseInt(localStorage.getItem("points")||"0");
+let b=document.getElementById("badge");
+if(p>=500){b.textContent="💎 Platinum Volunteer";}
+else if(p>=200){b.textContent="🥇 Gold Volunteer";}
+else if(p>=100){b.textContent="🥈 Silver Volunteer";}
+function logout(){localStorage.clear();location.href="login.html";}
+</script>
+</body>
+</html>

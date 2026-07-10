@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Pending Volunteers</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="firebase.js"></script>
+</head><body>
+<header>👥 Pending Volunteers</header>
+<div id="list"></div>
+<script>
+db.ref("volunteers").on("value",function(s){
+let h="";
+s.forEach(function(c){
+let v=c.val();
+if(v.status==="Pending"){
+h+=`<div class="card">
+<h3>${v.name}</h3>
+<p>${v.phone}</p>
+<p>${v.blood||""}</p>
+<button onclick="approve('${c.key}')">Approve</button>
+</div>`;
+}
+});
+document.getElementById("list").innerHTML=h||"<div class='card'>No Pending Volunteers</div>";
+});
+function approve(id){
+db.ref("volunteers/"+id+"/status").set("Approved").then(()=>alert("Volunteer Approved"));
+}
+</script>
+</body></html>

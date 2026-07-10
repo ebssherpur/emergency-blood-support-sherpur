@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Accepted Donors</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="firebase.js"></script>
+</head>
+<body>
+<header>✅ Accepted Donors</header>
+<div id="list"></div>
+<script>
+db.ref("users").on("value",function(s){
+let h="";
+s.forEach(function(c){
+let d=c.val();
+if(d.status==="Approved"){
+h+=`<div class="card">
+<h3>${d.name}</h3>
+<p>📞 ${d.phone}</p>
+<p>🩸 ${d.blood||""}</p>
+<p>📍 ${d.district||""}</p>
+<button onclick="location.href='chat.html?user=${d.phone}'">💬 Chat</button>
+<button onclick="location.href='tel:${d.phone}'">📞 Call</button>
+</div>`;
+}
+});
+document.getElementById("list").innerHTML=h||"<div class='card'>No Approved Donors</div>";
+});
+</script>
+</body>
+</html>

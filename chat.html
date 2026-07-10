@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Live Chat</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>💬 Live Chat</header>
+
+<div id="messages" class="container"></div>
+
+<div class="container">
+<input id="message" placeholder="Type a message...">
+<button onclick="sendMessage()">Send</button>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="firebase.js"></script>
+
+<script>
+const receiver=new URLSearchParams(location.search).get("user");
+const sender=localStorage.getItem("phone");
+const room=[sender,receiver].sort().join("_");
+
+db.ref("chats/"+room).on("value",snap=>{
+messages.innerHTML="";
+snap.forEach(c=>{
+let m=c.val();
+messages.innerHTML+=`
+<div class="card">
+<b>${m.sender===sender?"You":"Friend"}:</b><br>
+${m.text}
+</div>`;
+});
+window.scrollTo(0,document.body.scrollHeight);
+});
+
+function sendMessage(){
+let text=message.value.trim();
+if(!text)return;
+db.ref("chats/"+room).push({
+sender:sender,
+receiver:receiver,
+text:text,
+time:Date.now()
+});
+message.value="";
+}
+</script>
+</body>
+</html>
